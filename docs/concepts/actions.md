@@ -33,3 +33,36 @@ we like to follow the [FSA Standard](https://github.com/redux-utilities/flux-sta
 
 ## Dispatching Actions
 See [Store](store.md) documentation for how to dispatch actions.
+
+
+
+## Using a namespace around actions to group them
+A good way to group your actions is using namespaces.
+
+
+```
+// file: app.actions.ts
+export namespace AppActions {
+       export class Login {
+        static readonly type = '[App] Login';
+        constructor(public payload: User) { }
+    }
+     export class Logout {
+        static readonly type = '[App] Logout';
+       }
+}
+```
+
+use it like
+
+```
+// login.component.ts
+// you don't need to load all actions just load the namespace
+import { AppActions, AppState } from '../../store'; 
+
+....
+...
+onSubmit(){
+   this.store.dispatch(new AppActions.Login())
+}
+```
