@@ -71,3 +71,35 @@ Examples:
 
 A great video on the topic is [Good Action Hygiene by Mike Ryan](https://www.youtube.com/watch?v=JmnsEvoy-gY)
 It's for NGRX, but the same naming conventions apply to NGXS.
+
+
+## Using a namespace around actions to group them
+A good way to group your actions is using namespaces.
+
+
+```
+// file: app.actions.ts
+export namespace AppActions {
+       export class Login {
+        static readonly type = '[App] Login';
+        constructor(public payload: User) { }
+    }
+     export class Logout {
+        static readonly type = '[App] Logout';
+       }
+}
+```
+
+use it like
+
+```
+// login.component.ts
+// you don't need to load all actions just load the namespace
+import { AppActions, AppState } from '../../store'; 
+
+....
+...
+onSubmit(){
+   this.store.dispatch(new AppActions.Login())
+}
+```
